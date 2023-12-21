@@ -9,11 +9,15 @@ const createBtn = controls.querySelector("[data-create]");
 const destroyBtn = controls.querySelector("[data-destroy]");
 const boxesContainer = document.getElementById("boxes");
 
-createBtn.addEventListener("click", createBoxes);
-destroyBtn.addEventListener("click", destroyBoxes);
-
-function createBoxes() {
+createBtn.addEventListener("click", () => {
   const amount = input.value;
+  createBoxes(amount);
+});
+destroyBtn.addEventListener("click", () => {
+  destroyBoxes();
+});
+
+function createBoxes(amount) {
   if (!amount) {
     alert("Please enter a valid number");
     return;
@@ -21,14 +25,18 @@ function createBoxes() {
   destroyBoxes();
 
   let size = 30;
+  const fragment = document.createDocumentFragment();
+
   for (let i = 0; i < amount; i++) {
     const box = document.createElement("div");
     box.style.width = `${size}px`;
     box.style.height = `${size}px`;
     box.style.backgroundColor = getRandomHexColor();
-    boxesContainer.appendChild(box);
+    fragment.appendChild(box);
     size += 10;
   }
+
+  boxesContainer.appendChild(fragment);
 }
 
 function destroyBoxes() {
